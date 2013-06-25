@@ -1,0 +1,209 @@
+#tsw {
+  line-height: 1 !important;
+}
+
+#tsw a:hover,#tsw a {
+  text-decoration: none !important;
+}
+
+#tsw {
+  width: 94%;
+  height:60px;
+  float:left;
+  margin:0; padding:0 3%;
+  position:fixed;
+  top:0;
+  color: #fff;
+  font-family: arial, sans-serif !important;
+  z-index:9999;
+
+border-bottom:1px solid #444;
+     background: #000;
+  /* Fallback for web browsers that doesn't support RGBa */
+	background: rgb(0, 0, 0);
+	/* RGBa with 0.6 opacity */
+	background: rgba(0, 0, 0, 0.8);
+	/* For IE 5.5 - 7*/
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000);
+	/* For IE 8*/
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000)";
+
+
+}
+#tsw ul, #tsw li {
+  list-style: none;
+  margin:0; padding:0;
+  display:inline !important;
+  float:left !important;
+  width: auto !important;
+}
+#tsw select option {
+
+}
+
+#tsw .tsalignleft {
+  float:left;
+  padding:8px 0 0;
+  margin:0 !important;
+}
+#tsw .tsalignright {
+  float:right;
+  padding:15px 0 0;  margin:0 !important;
+}
+#tsw .tsbox {
+  float:left;
+  padding: 0;
+}
+#tsw .tsite a {
+  color: #fff;
+  font-size: 24px;
+  margin: 5px 0 0;
+  float:left;
+}
+#tsw #label {
+  float:left;
+  margin: 7px 10px 0 0;
+  font-size:16px;
+}
+
+#tsw select {
+font-size: 14px;
+color: #888;
+float:left;
+  width: 150px;
+  padding:5px;
+  margin: 0;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+   -moz-border-radius: 5px;
+   border:1px solid #111;
+}
+
+#tsw #switchform {
+	margin: 0px;
+	padding: 0px;
+	float: left;
+}
+
+
+
+
+#tsw .download-this a {
+  -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #7FBF4D;
+    background-image: -moz-linear-gradient(center top , #7FBF4D, #63A62F);
+    border-color: #63A62F #63A62F #5B992B;
+    border-image: none;
+    border-radius: 3px 3px 3px 3px;
+    border-style: solid;
+    border-width: 1px;
+    box-shadow: 0 1px 0 0 #96CA6D inset;
+    color: #FFFFFF;
+    font: bold 14px/1 "Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Verdana,sans-serif;
+    padding: 7px 12px;
+    text-align: center;
+    margin:0px 0 0 10px;
+    text-shadow: 0 -1px 0 #4C9021;
+    float:right;
+
+}
+
+#tsw .download-this a:hover {
+
+}
+
+
+
+ #tsw .detail-this a {
+  padding: 7px 20px !important;
+                  font-size: 13px;
+
+                  text-shadow: 0 0 1px #DB930D;
+  font-weight: bold;
+  margin: 0 0 0 10px;
+  float:right;
+              color:#fff;
+        box-shadow: inset 0 0 2px #DB740D;
+               -webkit-box-shadow: inset 0 0 2px #DB740D;
+              -moz-box-shadow: inset 0 0 2px #DB740D;
+
+         border-radius: 5px;
+  -webkit-border-radius: 5px;
+   -moz-border-radius: 5px;
+   border: 1px solid #F7B336;
+
+ background: #febf01;
+background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZlYmYwMSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNlMjU2MDAiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+background: -moz-linear-gradient(top,  #febf01 0%, #e25600 100%);
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#febf01), color-stop(100%,#e25600));
+background: -webkit-linear-gradient(top,  #febf01 0%,#e25600 100%);
+background: -o-linear-gradient(top,  #febf01 0%,#e25600 100%);
+background: -ms-linear-gradient(top,  #febf01 0%,#e25600 100%);
+background: linear-gradient(to bottom,  #febf01 0%,#e25600 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#febf01', endColorstr='#e25600',GradientType=0 );
+
+}
+
+ #tsw .detail-this a:hover {
+  padding: 7px 20px !important;
+                  font-size: 13px;
+
+                  text-shadow: 0 0 1px #DB930D;
+  font-weight: bold;
+  margin: 0 0 0 10px;
+  float:right;
+              color:#fff;
+        box-shadow: inset 0 0 2px #DB740D;
+               -webkit-box-shadow: inset 0 0 2px #DB740D;
+              -moz-box-shadow: inset 0 0 2px #DB740D;
+
+         border-radius: 5px;
+  -webkit-border-radius: 5px;
+   -moz-border-radius: 5px;
+   border: 1px solid #F7B336;
+
+ background: #f7e704;
+background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIyJSIgc3RvcC1jb2xvcj0iI2Y3ZTcwNCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNlMjU2MDAiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+background: -moz-linear-gradient(top,  #f7e704 2%, #e25600 100%);
+background: -webkit-gradient(linear, left top, left bottom, color-stop(2%,#f7e704), color-stop(100%,#e25600));
+background: -webkit-linear-gradient(top,  #f7e704 2%,#e25600 100%);
+background: -o-linear-gradient(top,  #f7e704 2%,#e25600 100%);
+background: -ms-linear-gradient(top,  #f7e704 2%,#e25600 100%);
+background: linear-gradient(to bottom,  #f7e704 2%,#e25600 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7e704', endColorstr='#e25600',GradientType=0 );
+
+}
+
+
+
+
+
+
+
+@media only screen and (min-width :768px) and (max-width :1024px) {
+#tsw select {width: 120px !important;}
+.alignleft {
+margin-right: 0 !important;
+}
+}
+
+@media only screen and (min-width :485px) and (max-width :770px){/* ipad 780px */
+#tsw select {width: 120px;}
+#tsw .alignleft a {display: none;}
+
+}
+
+
+@media only screen and (min-width :322px) and (max-width :482px){/* ipad 780px */
+#tsw select {width: 100px;}
+#tsw .detail-this a {
+margin: 0 !important;
+}
+#tsw .alignleft a,#label {display: none;}
+#tsw .download-this a {font-size: 11px;}
+#tsw .alignright {margin-left: 0em !important;}
+#tsw .alignleft {margin-right: 0em !important;}
+}
