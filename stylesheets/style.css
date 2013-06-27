@@ -46,8 +46,8 @@ small, strike, strong, sub, sup, tt, var,
 dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td {
-  border: 0;
-  font-family: inherit;
+	border: 0;
+	font-family: inherit;
 	font-size: 100%;
 	font-style: inherit;
 	font-weight: inherit;
@@ -1383,7 +1383,7 @@ span.post-category{
 
 	}
 .home-post span.post-category a {
-
+	
 }
 span.post-tags{
 
@@ -1392,7 +1392,7 @@ span.post-edit{
 
 }
 span.post-comment{
-
+	
 	}
 
 .post-single span.post-comment{
@@ -2061,7 +2061,7 @@ footer .widget-area aside ul li ul li {
 	clear: both;
 }
 .widget-area #sponsorlinks {
-
+	
 }
 
 .widget-area #sponsorlinks img {
@@ -2138,7 +2138,7 @@ footer aside div.tagcloud,footer aside div.textwidget {
 .widget_tag_cloud .widget-title {margin: 0 !important;}
 
 #right-sidebar aside {
-
+	
 	}
 #right-sidebar .sidepagedown {
 	background: #ddd;
@@ -2351,7 +2351,7 @@ div.featured-category .thumb img {
 	color: #333 !important;
 }
 #container .sidefeat h4 a {
-
+	
 	text-decoration: none;
 
 }
@@ -3380,6 +3380,9 @@ left:10px;
 width:50%;
 height:20%;
 max-width:300px;
+-webkit-box-shadow: 0 20px 10px rgba(0, 0, 0, 0.75);
+-moz-box-shadow: 0 20px 10px rgba(0, 0, 0, 0.75);
+box-shadow: 0 20px 10px rgba(0, 0, 0, 0.75);
 -webkit-transform:rotate(-4deg);
 -moz-transform:rotate(-4deg);
 -o-transform:rotate(-4deg);
