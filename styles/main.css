@@ -23,11 +23,10 @@ p {
 }
 
 h1 {
-	float: left;
 	font-size: 2em;
 	font-weight: normal;
 	font-style: italic;
-	padding: 0 0 25px 10px;
+	padding: 0 0 5px 10px;
 	margin: 0 0 10px;
 }
 h2 {
@@ -43,6 +42,15 @@ h3 {
 }
 h3 a {
 	color: #222;
+}
+
+#logo {
+	font: left;
+	font-size: 2em;
+	font-weight: normal;
+	font-style: italic;
+	padding: 0 0 10px 10px;
+	margin: 0 0 10px;
 }
 	
 #content {

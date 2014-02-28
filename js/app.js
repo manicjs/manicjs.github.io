@@ -1,1 +1,4 @@
-console.log('This would be the main JS file.');
+var mri = angular.module( 'mrisaacs', [] )
+  .config( function( $routeProvider, $locationProvider, $interpolateProvider ) {
+    $routeProvider.when( 'views/' )
+  });
