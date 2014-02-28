@@ -46,7 +46,7 @@ small, strike, strong, sub, sup, tt, var,
 dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td {
-  border: 0;
+	border: 0;
 	font-family: inherit;
 	font-size: 100%;
 	font-style: inherit;
@@ -3380,6 +3380,9 @@ left:10px;
 width:50%;
 height:20%;
 max-width:300px;
+-webkit-box-shadow: 0 20px 10px rgba(0, 0, 0, 0.75);
+-moz-box-shadow: 0 20px 10px rgba(0, 0, 0, 0.75);
+box-shadow: 0 20px 10px rgba(0, 0, 0, 0.75);
 -webkit-transform:rotate(-4deg);
 -moz-transform:rotate(-4deg);
 -o-transform:rotate(-4deg);
