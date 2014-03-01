@@ -7,5 +7,9 @@ var mri = angular.module( 'mrisaacs', ['ngRoute'] )
 });
 
 mri.controller('MainArticleCtrl', function( $scope ) {
-    $scope.main.title = 'Latest Story';
+    $scope.main = {
+        title : 'Latest Story',
+        body  : 'Loren ipsum...',
+        info  : 'posted 3 hours ago in...'
+    };
 });
