@@ -1,5 +1,5 @@
 var mri = angular.module( 'mrisaacs', [] )
-  .config( function( $routeProvider, $locationProvider, $interpolateProvider ) {
+  .config( function( ) {
  //   $routeProvider.when( '/' , {
  //     templateUrl : 'html/',
  //     controller  : 'Ctrl'
