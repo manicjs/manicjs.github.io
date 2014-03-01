@@ -1,4 +1,4 @@
-var mri = angular.module( 'mrisaacs', [] )
+var mri = angular.module( 'mrisaacs', ['ngRoute'] )
     .config( function( $routeProvider ) {
         $routeProvider.when( '/' , {
         templateUrl : 'html/main-article.html',
