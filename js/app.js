@@ -4,7 +4,6 @@ var mri = angular.module( 'mrisaacs', ['ngRoute'] )
             templateUrl : 'html/main-article.html',
             controller  : 'MainArticleCtrl'
         });
-    });
 });
 
 mri.controller('MainArticleCtrl', function( $scope ) {
