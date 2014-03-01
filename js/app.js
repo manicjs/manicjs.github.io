@@ -8,4 +8,4 @@ var mri = angular.module( 'mrisaacs', [] )
 
 mri.controller('MainArticleCtrl', function( $scope ) {
     $scope.main.title = 'Latest Story';
-}
+});
