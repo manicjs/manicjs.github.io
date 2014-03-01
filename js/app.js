@@ -1,8 +1,8 @@
 var mri = angular.module( 'mrisaacs', ['ngRoute'] )
     .config( function( $routeProvider ) {
         $routeProvider.when( '/' , {
-        templateUrl : 'html/main-article.html',
-        controller  : 'MainArticleCtrl'
+            templateUrl : 'html/main-article.html',
+            controller  : 'MainArticleCtrl'
     });
 });
 
