@@ -3,7 +3,8 @@ var mri = angular.module( 'mrisaacs', ['ngRoute'] )
         $routeProvider.when( '/' , {
             templateUrl : 'html/main-article.html',
             controller  : 'MainArticleCtrl'
-    }).run();
+        });
+    });
 });
 
 mri.controller('MainArticleCtrl', function( $scope ) {
