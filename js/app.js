@@ -7,7 +7,12 @@ var mri = angular.module( 'mrisaacs', ['ngRoute'] )
 });
 
 mri.controller('MainArticleCtrl', function( $scope, $http ) {
-    $http.get( 'data/article.json' );
+    $http.get( 'data/articles.json' )
+    .success( function( data, status, headers, config ) {
+        console.log( data );
+        console.log( status );
+    });
+
     $scope.main = {
         title : 'Latest Story',
         body  : 'Loren ipsum...',
