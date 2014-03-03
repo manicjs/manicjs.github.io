@@ -6,7 +6,8 @@ var mri = angular.module( 'mrisaacs', ['ngRoute'] )
         });
 });
 
-mri.controller('MainArticleCtrl', function( $scope ) {
+mri.controller('MainArticleCtrl', function( $scope, $http ) {
+    $http.get( 'data/article.json' );
     $scope.main = {
         title : 'Latest Story',
         body  : 'Loren ipsum...',
