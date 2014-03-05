@@ -1,6 +1,6 @@
 var mri = angular.module( 'mrisaacs', ['ngRoute'] )
     .config( function( $routeProvider, $locationProvider, $interpolateProvider, $httpProvider ) {
-        $httpProvider.defaults.headers.get['Content-Type'] = 'application/json';
+        $httpProvider.defaults.headers.common[ 'Content-Type' ] = 'application/json; charset=utf-8';
 
         $routeProvider.when( '/' , {
             templateUrl : 'html/main-article.html',
