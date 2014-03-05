@@ -8,14 +8,10 @@ var mri = angular.module( 'mrisaacs', ['ngRoute'] )
 
 mri.controller('MainArticleCtrl', function( $scope, $http ) {
     $http.get( 'data/articles.json' )
-    .success( function( data, status, headers, config ) {
-        console.log( data );
-        console.log( status );
+    .success( function( response, status, headers, config ) {
+        $scope.main = {
+            title : response.title
+            body  : response. body
+        }
     });
-
-    $scope.main = {
-        title : 'Latest Story',
-        body  : 'Loren ipsum...',
-        info  : 'posted 3 hours ago in...'
-    };
 });
