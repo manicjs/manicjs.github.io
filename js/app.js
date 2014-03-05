@@ -14,6 +14,6 @@ mri.controller('MainArticleCtrl', function( $scope, $http ) {
         $scope.main = {
             title : response.title,
             body  : response. body
-        }
+        };
     });
 });
