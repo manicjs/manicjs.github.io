@@ -12,7 +12,7 @@ mri.controller('MainArticleCtrl', function( $scope, $http ) {
         console.log( response );
 
         $scope.main = {
-            title : response.title
+            title : response.title,
             body  : response. body
         }
     });
