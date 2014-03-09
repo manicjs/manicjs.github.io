@@ -1,5 +1,5 @@
 {
-    title : 'Latest Story',
-    body  : 'Lorem ipsum...',
-    info  : 'posted 3 hours ago in...'
+    "title" : "Latest Story",
+    "body"  : "Lorem ipsum...",
+    "info"  : "posted 3 hours ago in..."
 }
