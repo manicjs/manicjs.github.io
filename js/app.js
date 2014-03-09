@@ -28,8 +28,11 @@ mri.controller( 'MainArticleCtrl', function( $scope, $http ) {
 mri.directive('dateAgo', function() {
     return {
         restrict : 'E',
+        template : '<p ng-bind="date"></p>',
+        replace  : true,
         link     : function( scope, elem, attr, ctrl ) {
             console.log( elem );
+            scope.date = attr.datetime;
             console.log( attr );
         }
     }
