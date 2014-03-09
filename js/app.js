@@ -29,7 +29,8 @@ mri.directive('dateAgo', function() {
     return {
         restrict : 'E',
         link     : function( scope, elem, attr, ctrl ) {
-            console.log( scope );
+            console.log( elem );
+            console.log( attr );
         }
     }
 });
