@@ -21,11 +21,11 @@ mri.controller( 'MainArticleCtrl', function( $scope, $http ) {
         $scope.main = {
             title : response.title,
             body  : response.body,
-            date  : response.date
+            date  : new Date(response.date)
         };
     });
 });
-
+/*
 mri.directive('dateAgo', function() {
     return {
         restrict : 'E',
@@ -37,4 +37,4 @@ mri.directive('dateAgo', function() {
             console.log( attr );
         }
     }
-});
+});*/
