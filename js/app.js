@@ -20,7 +20,8 @@ mri.controller( 'MainArticleCtrl', function( $scope, $http ) {
     .success( function( response, status, headers, config ) {
         $scope.main = {
             title : response.title,
-            body  : response. body
+            body  : response.body,
+            date  : response.date
         };
     });
 });
@@ -32,7 +33,7 @@ mri.directive('dateAgo', function() {
         replace  : true,
         link     : function( scope, elem, attr, ctrl ) {
             console.log( elem );
-            scope.date = attr.datetime;
+            scope.date = new Date(attr.datetime);
             console.log( attr );
         }
     }
