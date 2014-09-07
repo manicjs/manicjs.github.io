@@ -1,4 +1,4 @@
-var mri = angular.module( 'mrisaacs', ['ngRoute'] )
+var mri = angular.module( 'mrisaacs', ['ngRoute', 'angularMoment'] )
     .config( function( $routeProvider, $locationProvider, $interpolateProvider, $httpProvider ) {
         $httpProvider.defaults.headers.common[ 'Content-Type' ] = 'application/json; charset=utf-8';
 
@@ -21,10 +21,11 @@ mri.controller( 'MainArticleCtrl', function( $scope, $http ) {
         $scope.main = {
             title : response.title,
             body  : response.body,
-            date  : new Date(response.date)
+            date  : Math.round(new Date(response.date).getTime())
         };
     });
 });
+
 /*
 mri.directive('dateAgo', function() {
     return {
