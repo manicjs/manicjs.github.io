@@ -1,41 +1,45 @@
-var mri = angular.module( 'mrisaacs', ['ngRoute', 'angularMoment'] )
-    .config( function( $routeProvider, $locationProvider, $interpolateProvider, $httpProvider ) {
-        $httpProvider.defaults.headers.common[ 'Content-Type' ] = 'application/json; charset=utf-8';
-
-        $routeProvider.when( '/' , {
-            templateUrl : 'html/main-article.html',
-            controller  : 'MainArticleCtrl'
-        });
-
-        $locationProvider
-            .html5Mode( true )
-            .hashPrefix( '!' );
-
-        $interpolateProvider.startSymbol( '{[{' );
-        $interpolateProvider.endSymbol( '}]}' );
-});
-
-mri.controller( 'MainArticleCtrl', function( $scope, $http ) {
-    $http.get( 'data/articles.json' )
-    .success( function( response, status, headers, config ) {
-        $scope.main = {
-            title : response.title,
-            body  : response.body,
-            date  : Math.round(new Date(response.date).getTime() / 1000)
-        };
-    });
-});
-
 /*
-mri.directive('dateAgo', function() {
-    return {
-        restrict : 'E',
-        template : '<p ng-bind="date"></p>',
-        replace  : true,
-        link     : function( scope, elem, attr, ctrl ) {
-            console.log( elem );
-            scope.date = new Date(attr.datetime);
-            console.log( attr );
+ ---
+ description: Creates a navigation bar.
+ license: MIT-style
+ authors:
+ - Ivan Ilić
+ provides:
+ - docknav
+ ...
+ */
+
+var docknav = new Class({
+    Implements      : Options,
+
+    options         : {
+        navContainer : null,
+        navOffsetTop : null
+    },
+
+    docknav : function (element) {
+        if(this.options.navOffsetTop < window.getScroll().y && !this.options.navContainer.hasClass('has-docked-nav')) {
+            this.options.navContainer.addClass('has-docked-nav')
         }
+        if(this.options.navOffsetTop > window.getScroll().y && this.options.navContainer.hasClass('has-docked-nav')) {
+            this.options.navContainer.removeClass('has-docked-nav')
+        }
+    },
+
+    initialize      : function (element, options) {
+        var that = this;
+        this.options.navContainer = $$('body')[0];
+        this.options.navOffsetTop = document.getElement('nav').getPosition().y;
+
+        this.setOptions(options);
+
+        window.addEvents({
+            domready    : function () {
+                that.docknav($(element));
+            },
+            scroll      : function () {
+                that.docknav($(element));
+            }
+        });
     }
-});*/
+});
