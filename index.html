@@ -1,10 +1,10 @@
 <!DOCTYPE  html>
 <html>
 <head>
-    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+    <meta http-equiv="content-type" content="text/html;charset=utf-8"/>
     <title>MrIsaacs</title>
-    <meta name="author" content="Ivan Ilic" />
-	<meta name="description" content="Open World Project : Willkommen in einer offenen und natürlicheren Welt." />
+    <meta name="author" content="Ivan Ilic"/>
+    <meta name="description" content="Open World Project : Willkommen in einer offenen und natürlicheren Welt."/>
 
     <!-- CSS -->
     <link rel="stylesheet" href="styles/normalize.css">
@@ -13,79 +13,106 @@
     <!-- CSS -->
 
     <!-- SCRIPT -->
-	<script src="https://ajax.googleapis.com/ajax/libs/mootools/1.5.2/mootools.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/mootools/1.5.2/mootools.js"></script>
     <script src="./js/app.js"></script>
     <script type="text/javascript">
-        window.addEvent('domready', function(){
+        window.addEvent('domready', function () {
             new docknav();
+
+            $('credits').addEvent('click', function () {
+                // this code will send a data object via a GET request and alert the retrieved data.
+                var jsonRequest = new Request.JSON({
+                    url: './data/articles.json', onSuccess: function (response) {
+                        console.log(response);
+                    }
+                }).get();
+            });
         });
     </script>
     <!-- SCRIPT -->
 </head>
 <body>
-    <div id="header">
-        <div class="container">
-            <div class="three columns">
-                <div class="logo">
-                    <p>MrIsaacs</p>
-                </div>
+<div id="header">
+    <div class="container">
+        <div class="three columns">
+            <div class="logo">
+                <p>MrIsaacs</p>
             </div>
-            <div class="nine columns">
-                <div class="navbar-spacer"></div>
-                <nav class="navbar">
-                    <ul>
-                        <li><a href="https://mrisaacs.github.io/">home</a></li>
-                        <li><a href="https://mrisaacs.github.io/">archive</a></li>
-                        <li><a href="https://mrisaacs.github.io/">mind hacking</a></li>
-                        <li><a href="https://mrisaacs.github.io/">credits</a></li>
-                    </ul>
-                </nav>
+        </div>
+        <div class="nine columns">
+            <div class="navbar-spacer"></div>
+            <nav class="navbar">
+                <ul>
+                    <li><a href="https://mrisaacs.github.io/">home</a></li>
+                    <li><a href="https://mrisaacs.github.io/">archive</a></li>
+                    <li><a href="https://mrisaacs.github.io/">mind hacking</a></li>
+                    <li><a id="credits" href="#">credits</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+<div id="wrapper">
+    <!-- CONTAINER -->
+    <div class="container">
+        <div class="row section">
+            <div class="one-third column">
+                <a class="avatar-wrapper">
+                    <img class="avatar" alt="MrIsaacs Gravatar"
+                         src="http://gravatar.com/avatar/6b2fed7a920515d34bf4e896ad57e3e4.jpg?s=250&r=g">
+                    <!-- p class="info">posted 3 hours ago in general</p -->
+                </a>
+            </div>
+            <div class="main-article two-thirds column">
+                <h1 id="main-title">Latest Story</h1>
+                <p id="main-body">Lorem ipsum...</p>
+                <p id="main-date">May 4, 2013 23:00:01</p>
+            </div>
+        </div>
+        <div class="row section">
+            <div class="short-article one-third column">
+                <h3><a href="#">Ut enim risus rhoncus</a></h3>
+                <p>Quisque consectetur odio ut sem semper commodo. Maecenas iaculis leo a ligula euismod condimentum.
+                    Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Ut enim risus,
+                    rhoncus sit amet ultricies vel, aliquet ut dolor. Duis iaculis urna vel massa ultricies suscipit.
+                    Phasellus diam sapien, fermentum a eleifend non, luctus non augue. Quisque scelerisque purus quis
+                    eros sollicitudin gravida. Aliquam erat volutpat. Donec a sem consequat tortor posuere dignissim sit
+                    amet at.</p>
+                <p>&not; <a href="#">read more</a></p>
+            </div>
+            <div class="short-article one-third column">
+                <h3><a href="#">Maecenas iaculis leo</a></h3>
+                <p>Quisque consectetur odio ut sem semper commodo. Maecenas iaculis leo a ligula euismod condimentum.
+                    Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Ut enim risus,
+                    rhoncus sit amet ultricies vel, aliquet ut dolor. Duis iaculis urna vel massa ultricies suscipit.
+                    Phasellus diam sapien, fermentum a eleifend non, luctus non augue. Quisque scelerisque purus quis
+                    eros sollicitudin gravida. Aliquam erat volutpat. Donec a sem consequat tortor posuere dignissim sit
+                    amet at.</p>
+                <p>&not; <a href="#">read more</a></p>
+            </div>
+            <div class="short-article one-third column last">
+                <h3><a href="#">Quisque consectetur odio</a></h3>
+                <p>Quisque consectetur odio ut sem semper commodo. Maecenas iaculis leo a ligula euismod condimentum.
+                    Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Ut enim risus,
+                    rhoncus sit amet ultricies vel, aliquet ut dolor. Duis iaculis urna vel massa ultricies suscipit.
+                    Phasellus diam sapien, fermentum a eleifend non, luctus non augue. Quisque scelerisque purus quis
+                    eros sollicitudin gravida. Aliquam erat volutpat. Donec a sem consequat tortor posuere dignissim sit
+                    amet at.</p>
+                <p>&not; <a href="#">read more</a></p>
             </div>
         </div>
     </div>
-    <div id="wrapper">
-        <!-- CONTAINER -->
-        <div class="container">
-            <div class="row section">
-                <div class="one-third column">
-                    <a class="avatar-wrapper">
-                        <img class="avatar" alt="MrIsaacs Gravatar" src="http://gravatar.com/avatar/6b2fed7a920515d34bf4e896ad57e3e4.jpg?s=250&r=g">
-                        <!-- p class="info">posted 3 hours ago in general</p -->
-                    </a>
-                </div>
-                <div class="main-article two-thirds column">
-                    <h1 id="main-title">Latest Story</h1>
-                    <p id="main-body">Lorem ipsum...</p>
-                    <p id="main-date">May 4, 2013 23:00:01</p>
-                </div>
-            </div>
-            <div class="row section">
-                <div class="short-article one-third column">
-                    <h3><a href="#">Ut enim risus rhoncus</a></h3>
-                    <p>Quisque consectetur odio ut sem semper commodo. Maecenas iaculis leo a ligula euismod condimentum. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Ut enim risus, rhoncus sit amet ultricies vel, aliquet ut dolor. Duis iaculis urna vel massa ultricies suscipit. Phasellus diam sapien, fermentum a eleifend non, luctus non augue. Quisque scelerisque purus quis eros sollicitudin gravida. Aliquam erat volutpat. Donec a sem consequat tortor posuere dignissim sit amet at.</p>
-                    <p>&not; <a href="#">read more</a></p>
-                </div>
-                <div class="short-article one-third column">
-                    <h3><a href="#">Maecenas iaculis leo</a></h3>
-                    <p>Quisque consectetur odio ut sem semper commodo. Maecenas iaculis leo a ligula euismod condimentum. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Ut enim risus, rhoncus sit amet ultricies vel, aliquet ut dolor. Duis iaculis urna vel massa ultricies suscipit. Phasellus diam sapien, fermentum a eleifend non, luctus non augue. Quisque scelerisque purus quis eros sollicitudin gravida. Aliquam erat volutpat. Donec a sem consequat tortor posuere dignissim sit amet at.</p>
-                    <p>&not; <a href="#">read more</a></p>
-                </div>
-                <div class="short-article one-third column last">
-                    <h3><a href="#">Quisque consectetur odio</a></h3>
-                    <p>Quisque consectetur odio ut sem semper commodo. Maecenas iaculis leo a ligula euismod condimentum. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Ut enim risus, rhoncus sit amet ultricies vel, aliquet ut dolor. Duis iaculis urna vel massa ultricies suscipit. Phasellus diam sapien, fermentum a eleifend non, luctus non augue. Quisque scelerisque purus quis eros sollicitudin gravida. Aliquam erat volutpat. Donec a sem consequat tortor posuere dignissim sit amet at.</p>
-                    <p>&not; <a href="#">read more</a></p>
-                </div>
-            </div>
-        </div>
-        <!-- CONTAINER -->
-	</div>
-    <div id="footer">
-        <div class="container">
-            <div class="row section">
-                <p>Copyright &copy; <em>MrIsaacs</em> &middot; Design: Luka Cvrk, <a href="http://mrisaacs.github.io/" title="MrIsaacs - Blog">MrIsaacs</a></p>
-            </div>
+    <!-- CONTAINER -->
+</div>
+<div id="footer">
+    <div class="container">
+        <div class="row section">
+            <p>Copyright &copy; <em>MrIsaacs</em> &middot; Design: Luka Cvrk, <a href="http://mrisaacs.github.io/"
+                                                                                 title="MrIsaacs - Blog">MrIsaacs</a>
+            </p>
         </div>
     </div>
+</div>
 </body>
 </html>
 
