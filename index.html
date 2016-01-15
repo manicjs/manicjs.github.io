@@ -10,22 +10,45 @@
     <link rel="stylesheet" href="styles/normalize.css">
     <link rel="stylesheet" href="styles/skeleton.css">
     <link rel="stylesheet" href="styles/custom.css">
+    <link rel="stylesheet" href="styles/animation.css">
     <!-- CSS -->
 
     <!-- SCRIPT -->
     <script src="https://ajax.googleapis.com/ajax/libs/mootools/1.5.2/mootools.js"></script>
+    <script src="https://gist.githubusercontent.com/jorilallo/1283095/raw/b36b4fa86b13fcb132f673a1d75e68e3021ad855/showdown.js"></script>
+    <script src="./js/moodown.js"></script>
     <script src="./js/app.js"></script>
     <script type="text/javascript">
         window.addEvent('domready', function () {
             new docknav();
 
-            $('credits').addEvent('click', function () {
-                // this code will send a data object via a GET request and alert the retrieved data.
-                var jsonRequest = new Request.JSON({
-                    url: './data/articles.json', onSuccess: function (response) {
-                        console.log(response);
-                    }
-                }).get();
+            /**
+             * This code will send a data object via a GET
+             * request and alert the retrieved data.
+             */
+            var jsonRequest = new Request.JSON({
+                onSuccess: function (response) {
+                    $('main-title').set('text',response.title);
+                    $('main-date').set('text',response.date);
+
+                    new MooDown('main-body', {
+                        markdown    : response.body
+                    });
+
+                    $$('.shimmer-layer').removeClass('no-anim');
+                    $$('.shimmer-layer').addClass('hidden');
+                    $$('.article-layer').removeClass('hidden no-anim');
+                }
+            });
+
+            $('navbar').getElements('a').addEvent('click', function (element) {
+                $$('.article-layer').addClass('hidden no-anim');
+                $$('.shimmer-layer').addClass('no-anim');
+                $$('.shimmer-layer').removeClass('hidden');
+
+                jsonRequest.options.url = './data/' + element.target.id + '.json';
+
+                jsonRequest.get();
             });
         });
     </script>
@@ -41,11 +64,11 @@
         </div>
         <div class="nine columns">
             <div class="navbar-spacer"></div>
-            <nav class="navbar">
+            <nav id="navbar" class="navbar">
                 <ul>
-                    <li><a href="https://mrisaacs.github.io/">home</a></li>
-                    <li><a href="https://mrisaacs.github.io/">archive</a></li>
-                    <li><a href="https://mrisaacs.github.io/">mind hacking</a></li>
+                    <li><a id="home" href="#">home</a></li>
+                    <li><a id="archive" href="#">archive</a></li>
+                    <li><a id="mind-hacking" href="#">mind hacking</a></li>
                     <li><a id="credits" href="#">credits</a></li>
                 </ul>
             </nav>
@@ -55,7 +78,7 @@
 <div id="wrapper">
     <!-- CONTAINER -->
     <div class="container">
-        <div class="row section">
+        <div class="row section content">
             <div class="one-third column">
                 <a class="avatar-wrapper">
                     <img class="avatar" alt="MrIsaacs Gravatar"
@@ -64,9 +87,32 @@
                 </a>
             </div>
             <div class="main-article two-thirds column">
-                <h1 id="main-title">Latest Story</h1>
-                <p id="main-body">Lorem ipsum...</p>
-                <p id="main-date">May 4, 2013 23:00:01</p>
+                <div class="article-layer">
+                    <h1 id="main-title">Latest Story</h1>
+                    <p id="main-date">May 4, 2013 23:00:01</p>
+                    <p id="main-body">Lorem ipsum...</p>
+                </div>
+                <div class="shimmer-layer hidden">
+                    <div class="shimmer">
+                        <div class="shimmer-masker header-left"></div>
+                        <div class="shimmer-masker header-right"></div>
+                        <div class="shimmer-masker header-bottom"></div>
+                        <div class="shimmer-masker subheader-left"></div>
+                        <div class="shimmer-masker subheader-right"></div>
+                        <div class="shimmer-masker subheader-bottom"></div>
+                    </div>
+                    <div class="shimmer-content">
+                        <div class="shimmer-masker content-first-end"></div>
+                        <div class="shimmer-masker content-second-line"></div>
+                        <div class="shimmer-masker content-second-end"></div>
+                        <div class="shimmer-masker content-third-line"></div>
+                        <div class="shimmer-masker content-third-end"></div>
+                        <div class="shimmer-masker content-fourth-line"></div>
+                        <div class="shimmer-masker content-fourth-end"></div>
+                        <div class="shimmer-masker content-fifth-line"></div>
+                        <div class="shimmer-masker content-fifth-end"></div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="row section">
@@ -107,8 +153,7 @@
 <div id="footer">
     <div class="container">
         <div class="row section">
-            <p>Copyright &copy; <em>MrIsaacs</em> &middot; Design: Luka Cvrk, <a href="http://mrisaacs.github.io/"
-                                                                                 title="MrIsaacs - Blog">MrIsaacs</a>
+            <p>Copyright &copy; <em>MrIsaacs</em> &middot; Design: <a href="http://solucija.com/template/minimalistica" title="solucija.com - template:minimalistica">Luka Cvrk</a>, <a href="http://mrisaacs.github.io/" title="MrIsaacs - Blog">MrIsaacs</a>
             </p>
         </div>
     </div>

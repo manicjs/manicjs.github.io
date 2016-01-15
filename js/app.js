@@ -26,7 +26,7 @@ var docknav = new Class({
         }
     },
 
-    initialize      : function (element, options) {
+    initialize  : function (element, options) {
         var that = this;
         this.options.navContainer = $$('body')[0];
         this.options.navOffsetTop = document.getElement('nav').getPosition().y;
