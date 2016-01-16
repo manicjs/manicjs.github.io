@@ -36,6 +36,7 @@
              */
             var jsonRequest = new Request.JSON({
                 onSuccess: function (response) {
+                    response = response['mind-hacking'][0];
                     $('main-title').set('text', response.title);
                     $('main-date').set('text', new Date(response.date).timeDiffInWords());
 
