@@ -12,7 +12,10 @@ var MooDown = new Class ({
     },
 
     moodown : function(element, text){
-        var converter = new Showdown.converter();
+        var converter = new showdown.Converter({
+            'headerLevelStart'  : '2',
+            tables              : true
+        });
         var html = converter.makeHtml(text);
 
         $(element).set('html', html);
