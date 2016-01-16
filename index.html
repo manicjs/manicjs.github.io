@@ -23,6 +23,12 @@
         window.addEvent('domready', function () {
             new docknav();
 
+            var getElement = $('header').getElement;
+
+            var logo    = getElement('.three.columns');
+            var navbar  = getElement('.nine.columns:not(div.mob)');
+            var menubar = getElement('.mob.nine.columns');
+
             /**
              * This code will send a data object via a GET
              * request and alert the retrieved data.
@@ -42,14 +48,23 @@
                 }
             });
 
-            $('navbar').getElements('a').addEvent('click', function (element) {
+            $('navbar').getElements('a').addEvent('click', function (event) {
+                event.preventDefault();
                 $$('.article-layer').addClass('hidden no-anim');
                 $$('.shimmer-layer').addClass('no-anim');
                 $$('.shimmer-layer').removeClass('hidden');
 
-                jsonRequest.options.url = './data/' + element.target.id + '.json';
+                jsonRequest.options.url = './data/' + event.target.id + '.json';
 
                 jsonRequest.get();
+            });
+
+            $('menu-bar').addEvent('click', function (event) {
+                event.preventDefault();
+
+                logo.setStyle('display',    'none');
+                menubar.setStyle('display', 'none');
+                navbar.setStyle('display',  'block');
             });
         });
     </script>
@@ -73,6 +88,13 @@
                     <li><a id="credits" href="#">credits</a></li>
                 </ul>
             </nav>
+        </div>
+        <div class="mob nine columns u-pull-right">
+            <a id="menu-bar" class="menu-bar u-pull-right">
+                <span class="bar bar1"></span>
+                <span class="bar bar2"></span>
+                <span class="bar bar3"></span>
+            </a>
         </div>
     </div>
 </div>
