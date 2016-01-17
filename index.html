@@ -36,7 +36,7 @@
              */
             var jsonRequest = new Request.JSON({
                 onSuccess: function (response) {
-                    response = response['mind-hacking'][0];
+                    response = response['bio-hacking'][0];
                     $('main-title').set('text', response.title);
                     $('main-date').set('text', new Date(response.date).timeDiffInWords());
 
@@ -50,13 +50,14 @@
                 }
             });
 
-            $('navbar').getElements('a').addEvent('click', function (event) {
-                event.preventDefault();
+            $('navbar').getElements('a').addEvent('click', function (e) {
+                e.preventDefault();
+
                 $$('.article-layer').addClass('hidden no-anim');
                 $$('.shimmer-layer').addClass('no-anim');
                 $$('.shimmer-layer').removeClass('hidden');
 
-                jsonRequest.options.url = './data/' + event.target.id + '.json';
+                jsonRequest.options.url = './data/' + e.target.id + '.json';
 
                 jsonRequest.get();
             });
@@ -86,7 +87,7 @@
                 <ul>
                     <li><a id="home" href="#">home</a></li>
                     <li><a id="archive" href="#">archive</a></li>
-                    <li><a id="mind-hacking" href="#">mind hacking</a></li>
+                    <li><a id="mind-hacking" data-id="1" href="#">mind hacking</a></li>
                     <li><a id="credits" href="#">credits</a></li>
                 </ul>
             </nav>
