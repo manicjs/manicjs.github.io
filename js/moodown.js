@@ -5,16 +5,16 @@
 var MooDown = new Class ({
     Implements          : Options,
 
-    markdown            : null,
-
     options : {
-        markdown    : null // The class for markdown text element
+        markdown            : null, // The class for markdown text element
+        simplifiedAutoLink  : false
     },
 
     moodown : function(element, text){
         var converter = new showdown.Converter({
             'headerLevelStart'  : '2',
-            tables              : true
+            tables              : true,
+            simplifiedAutoLink  : this.options.simplifiedAutoLink
         });
         var html = converter.makeHtml(text);
 

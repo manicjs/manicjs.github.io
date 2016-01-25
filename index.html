@@ -30,18 +30,36 @@
             var navbar  = getElement('.nine.columns:not(div.mob)');
             var menubar = getElement('.mob.nine.columns');
 
-            /**
-             * This code will send a data object via a GET
-             * request and alert the retrieved data.
-             */
             var jsonRequest = new Request.JSON({
+                onRequest: function(){
+                    $$('.article-layer').addClass('hidden no-anim');
+                    $$('.shimmer-layer').addClass('no-anim');
+                    $$('.shimmer-layer').removeClass('hidden');
+
+                    //loadContent();
+                },
                 onSuccess: function (response) {
-                    response = response['bio-hacking'][0];
-                    $('main-title').set('text', response.title);
-                    $('main-date').set('text', new Date(response.date).timeDiffInWords());
+                    var key = Object.keys(response)[0];
+                    mainArticle = response[key][0];
+                    var shortsamount = 3;
+
+                    for (i = 1; i < shortsamount + 1; i++) {
+                        var shortArticle = response[key][i];
+
+                        $('short-title-' + i).set('text', shortArticle.title);
+                        $('short-title-' + i).setProperty('href', i);
+
+                        new MooDown('short-body-' + i, {
+                            simplifiedAutoLink  : true,
+                            markdown            : shortArticle.short
+                        });
+                    }
+
+                    $('main-title').set('text', mainArticle.title);
+                    $('main-date').set('text', new Date(mainArticle.date).timeDiffInWords());
 
                     new MooDown('main-body', {
-                        markdown    : response.body
+                        markdown    : mainArticle.body
                     });
 
                     $$('.shimmer-layer').removeClass('no-anim');
@@ -50,12 +68,12 @@
                 }
             });
 
+            function loadContent(request, link) {
+
+            }
+
             $('navbar').getElements('a').addEvent('click', function (e) {
                 e.preventDefault();
-
-                $$('.article-layer').addClass('hidden no-anim');
-                $$('.shimmer-layer').addClass('no-anim');
-                $$('.shimmer-layer').removeClass('hidden');
 
                 jsonRequest.options.url = './data/' + e.target.id + '.json';
 
@@ -143,8 +161,8 @@
         </div>
         <div class="row section">
             <div class="short-article one-third column">
-                <h3><a href="#">Ut enim risus rhoncus</a></h3>
-                <p>Quisque consectetur odio ut sem semper commodo. Maecenas iaculis leo a ligula euismod condimentum.
+                <h3><a id="short-title-1" href="#">Ut enim risus rhoncus</a></h3>
+                <p id="short-body-1">Quisque consectetur odio ut sem semper commodo. Maecenas iaculis leo a ligula euismod condimentum.
                     Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Ut enim risus,
                     rhoncus sit amet ultricies vel, aliquet ut dolor. Duis iaculis urna vel massa ultricies suscipit.
                     Phasellus diam sapien, fermentum a eleifend non, luctus non augue. Quisque scelerisque purus quis
@@ -153,8 +171,8 @@
                 <p>&not; <a href="#">read more</a></p>
             </div>
             <div class="short-article one-third column">
-                <h3><a href="#">Maecenas iaculis leo</a></h3>
-                <p>Quisque consectetur odio ut sem semper commodo. Maecenas iaculis leo a ligula euismod condimentum.
+                <h3><a id="short-title-2" href="#">Maecenas iaculis leo</a></h3>
+                <p id="short-body-2">Quisque consectetur odio ut sem semper commodo. Maecenas iaculis leo a ligula euismod condimentum.
                     Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Ut enim risus,
                     rhoncus sit amet ultricies vel, aliquet ut dolor. Duis iaculis urna vel massa ultricies suscipit.
                     Phasellus diam sapien, fermentum a eleifend non, luctus non augue. Quisque scelerisque purus quis
@@ -163,8 +181,8 @@
                 <p>&not; <a href="#">read more</a></p>
             </div>
             <div class="short-article one-third column last">
-                <h3><a href="#">Quisque consectetur odio</a></h3>
-                <p>Quisque consectetur odio ut sem semper commodo. Maecenas iaculis leo a ligula euismod condimentum.
+                <h3><a id="short-title-3" href="#">Quisque consectetur odio</a></h3>
+                <p id="short-body-3">Quisque consectetur odio ut sem semper commodo. Maecenas iaculis leo a ligula euismod condimentum.
                     Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Ut enim risus,
                     rhoncus sit amet ultricies vel, aliquet ut dolor. Duis iaculis urna vel massa ultricies suscipit.
                     Phasellus diam sapien, fermentum a eleifend non, luctus non augue. Quisque scelerisque purus quis
