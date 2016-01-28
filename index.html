@@ -39,12 +39,15 @@
                     //loadContent();
                 },
                 onSuccess: function (response) {
-                    var key = Object.keys(response)[0];
-                    mainArticle = response[key][0];
+                    var index = response.index[(0).toString()];
+
+                    console.log(index);
+
+                    mainArticle = response.data[index];
                     var shortsamount = 3;
 
                     for (i = 1; i < shortsamount + 1; i++) {
-                        var shortArticle = response[key][i];
+                        var shortArticle = response.data[i.toString()];
 
                         $('short-title-' + i).set('text', shortArticle.title);
                         $('short-title-' + i).setProperty('href', i);
@@ -92,6 +95,16 @@
     <!-- SCRIPT -->
 </head>
 <body>
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-39025849-2', 'auto');
+    ga('send', 'pageview');
+
+</script>
 <div id="header">
     <div class="container">
         <div class="three columns">
