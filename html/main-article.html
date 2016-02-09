@@ -1,0 +1,5 @@
+<div ng-controller="MainArticleCtrl" class="main-article">
+    <h1 ng-bind="main.title"></h1>
+    <p ng-bind="main.body"></p>
+    <p am-time-ago="main.date" am-preprocess="unix"></p>
+</div>
