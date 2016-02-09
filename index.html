@@ -1,11 +1,11 @@
 <!DOCTYPE  html>
 <html>
 <head>
-    <title>MrIsaacs</title>
+    <title>Manic</title>
     <meta http-equiv="content-type" content="text/html;charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
     <meta name="author" content="Ivan Ilic"/>
-    <meta name="description" content="Open World Project : Willkommen in einer offenen und natürlicheren Welt."/>
+    <meta name="description" content="Manic"/>
 
     <!-- CSS -->
     <link rel="stylesheet" href="styles/normalize.css">
@@ -19,10 +19,14 @@
     <script src="./js/mootools-more.js"></script>
     <script src="https://cdn.rawgit.com/showdownjs/showdown/1.3.0/dist/showdown.min.js"></script>
     <script src="./js/moodown.js"></script>
+    <script src="./js/mooclick.js"></script>
     <script src="./js/app.js"></script>
+    <script src="./js/navigo.min.js"></script>
     <script type="text/javascript">
         window.addEvent('domready', function () {
             new docknav();
+
+            var router = new Navigo(null, true);
 
             var getElement = $('header').getElement;
 
@@ -35,53 +39,46 @@
                     $$('.article-layer').addClass('hidden no-anim');
                     $$('.shimmer-layer').addClass('no-anim');
                     $$('.shimmer-layer').removeClass('hidden');
-
-                    //loadContent();
                 },
                 onSuccess: function (response) {
-                    var index = response.index[(0).toString()];
+                    var requestID = this.options.headers['Request-ID'];
+                    var index     = response.index[requestID.toString()];
+                    var article = response.data[index];
 
-                    console.log(index);
-
-                    mainArticle = response.data[index];
-                    var shortsamount = 3;
-
-                    for (i = 1; i < shortsamount + 1; i++) {
-                        var shortArticle = response.data[i.toString()];
-
-                        $('short-title-' + i).set('text', shortArticle.title);
-                        $('short-title-' + i).setProperty('href', i);
-
-                        new MooDown('short-body-' + i, {
-                            simplifiedAutoLink  : true,
-                            markdown            : shortArticle.short
-                        });
-                    }
-
-                    $('main-title').set('text', mainArticle.title);
-                    $('main-date').set('text', new Date(mainArticle.date).timeDiffInWords());
+                    $('main-title').set('text', article.title);
+                    $('main-date').set('text', new Date(article.date).timeDiffInWords());
 
                     new MooDown('main-body', {
-                        markdown    : mainArticle.body
+                        markdown    : article.body
                     });
 
                     $$('.shimmer-layer').removeClass('no-anim');
                     $$('.shimmer-layer').addClass('hidden');
                     $$('.article-layer').removeClass('hidden no-anim');
+
+                    clickEvents.refresh();
+                    router.updatePageLinks();
                 }
             });
 
-            function loadContent(request, link) {
-
-            }
-
-            $('navbar').getElements('a').addEvent('click', function (e) {
+            var addClickEvent = function (e) {
                 e.preventDefault();
 
-                jsonRequest.options.url = './data/' + e.target.id + '.json';
+                jsonRequest.options.url = './data/' + e.target.dataset.link + '.json';
+                jsonRequest.setHeader('Request-ID', e.target.dataset.id);
+
+                console.log(router);
+                router.navigate(e.target.dataset.link);
 
                 jsonRequest.get();
-            });
+            };
+
+            var clickEvents = new MooClick('a', {
+                        hasData       : 'link',
+                        requestObject : jsonRequest
+                    },
+                    addClickEvent
+            );
 
             $('menu-bar').addEvent('click', function (event) {
                 event.preventDefault();
@@ -90,36 +87,44 @@
                 menubar.setStyle('display', 'none');
                 navbar.setStyle('display',  'block');
             });
+
+            router.on({
+                'credits' : function () {
+                    jsonRequest.options.url = './data/credits.json';
+                    jsonRequest.setHeader('Request-ID', 1);
+                    // console.log(jsonRequest);
+                    jsonRequest.get();
+                    console.log('credits');
+                },
+                '/' : function () {
+                    jsonRequest.options.url = './data/home.json';
+                    jsonRequest.setHeader('Request-ID', 1);
+                    // console.log(jsonRequest);
+                    jsonRequest.get();
+                    console.log('start');
+                }
+            });
+            router.on(function () {
+                console.log('end');
+            });
         });
     </script>
     <!-- SCRIPT -->
 </head>
 <body>
-<script>
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-    ga('create', 'UA-39025849-2', 'auto');
-    ga('send', 'pageview');
-
-</script>
 <div id="header">
     <div class="container">
         <div class="three columns">
             <div class="logo">
-                <p>MrIsaacs</p>
+                <p>Manic</p>
             </div>
         </div>
         <div class="nine columns">
             <div class="navbar-spacer"></div>
             <nav id="navbar" class="navbar">
                 <ul>
-                    <li><a id="home" href="#">home</a></li>
-                    <li><a id="archive" href="#">archive</a></li>
-                    <li><a id="mind-hacking" data-id="1" href="#">mind hacking</a></li>
-                    <li><a id="credits" href="#">credits</a></li>
+                    <li><a data-navigo data-id="1" data-link="home" href="home">home</a></li>
+                    <li><a data-navigo data-id="1" data-link="credits" href="credits">credits</a></li>
                 </ul>
             </nav>
         </div>
@@ -138,9 +143,7 @@
         <div class="row section content">
             <div class="one-third column">
                 <a class="avatar-wrapper">
-                    <img class="avatar" alt="MrIsaacs Gravatar"
-                         src="https://gravatar.com/avatar/6b2fed7a920515d34bf4e896ad57e3e4.jpg?s=250&r=g">
-                    <!-- p class="info">posted 3 hours ago in general</p -->
+                    <span class="integral">&int;</span><span class="initial">M</span>
                 </a>
             </div>
             <div class="main-article two-thirds column">
@@ -172,49 +175,16 @@
                 </div>
             </div>
         </div>
-        <div class="row section">
-            <div class="short-article one-third column">
-                <h3><a id="short-title-1" href="#">Ut enim risus rhoncus</a></h3>
-                <p id="short-body-1">Quisque consectetur odio ut sem semper commodo. Maecenas iaculis leo a ligula euismod condimentum.
-                    Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Ut enim risus,
-                    rhoncus sit amet ultricies vel, aliquet ut dolor. Duis iaculis urna vel massa ultricies suscipit.
-                    Phasellus diam sapien, fermentum a eleifend non, luctus non augue. Quisque scelerisque purus quis
-                    eros sollicitudin gravida. Aliquam erat volutpat. Donec a sem consequat tortor posuere dignissim sit
-                    amet at.</p>
-                <p>&not; <a href="#">read more</a></p>
-            </div>
-            <div class="short-article one-third column">
-                <h3><a id="short-title-2" href="#">Maecenas iaculis leo</a></h3>
-                <p id="short-body-2">Quisque consectetur odio ut sem semper commodo. Maecenas iaculis leo a ligula euismod condimentum.
-                    Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Ut enim risus,
-                    rhoncus sit amet ultricies vel, aliquet ut dolor. Duis iaculis urna vel massa ultricies suscipit.
-                    Phasellus diam sapien, fermentum a eleifend non, luctus non augue. Quisque scelerisque purus quis
-                    eros sollicitudin gravida. Aliquam erat volutpat. Donec a sem consequat tortor posuere dignissim sit
-                    amet at.</p>
-                <p>&not; <a href="#">read more</a></p>
-            </div>
-            <div class="short-article one-third column last">
-                <h3><a id="short-title-3" href="#">Quisque consectetur odio</a></h3>
-                <p id="short-body-3">Quisque consectetur odio ut sem semper commodo. Maecenas iaculis leo a ligula euismod condimentum.
-                    Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Ut enim risus,
-                    rhoncus sit amet ultricies vel, aliquet ut dolor. Duis iaculis urna vel massa ultricies suscipit.
-                    Phasellus diam sapien, fermentum a eleifend non, luctus non augue. Quisque scelerisque purus quis
-                    eros sollicitudin gravida. Aliquam erat volutpat. Donec a sem consequat tortor posuere dignissim sit
-                    amet at.</p>
-                <p>&not; <a href="#">read more</a></p>
-            </div>
-        </div>
     </div>
     <!-- CONTAINER -->
 </div>
 <div id="footer">
     <div class="container">
         <div class="row section">
-            <p>Copyright &copy; <em>MrIsaacs</em> &middot; Design: <a href="http://solucija.com/template/minimalistica" title="solucija.com - template:minimalistica">Luka Cvrk</a>, <a href="http://mrisaacs.github.io/" title="MrIsaacs - Blog">MrIsaacs</a>
+            <p>Copyright &copy; <em><a href="http://mrisaacs.github.io/" title="MrIsaacs - Blog">MrIsaacs</a></em>
             </p>
         </div>
     </div>
 </div>
 </body>
 </html>
-
