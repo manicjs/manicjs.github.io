@@ -71,9 +71,6 @@
                 jsonRequest.options.url = './data/' + e.target.dataset.link + '.json';
                 jsonRequest.setHeader('Request-ID', e.target.dataset.id);
 
-                console.log(router);
-                router.navigate(e.target.dataset.link);
-
                 jsonRequest.get();
             };
 
