@@ -71,9 +71,6 @@
                 jsonRequest.options.url = './data/' + e.target.dataset.link + '.json';
                 jsonRequest.setHeader('Request-ID', e.target.dataset.id);
 
-                console.log(router);
-                router.navigate(e.target.dataset.link);
-
                 jsonRequest.get();
             };
 
@@ -93,6 +90,13 @@
             });
 
             router.on({
+                'changelog' : function () {
+                    jsonRequest.options.url = './data/changelog.json';
+                    jsonRequest.setHeader('Request-ID', 1);
+                    // console.log(jsonRequest);
+                    jsonRequest.get();
+                    console.log('changlog');
+                },
                 'credits' : function () {
                     jsonRequest.options.url = './data/credits.json';
                     jsonRequest.setHeader('Request-ID', 1);
@@ -105,7 +109,7 @@
                     jsonRequest.setHeader('Request-ID', 1);
                     // console.log(jsonRequest);
                     jsonRequest.get();
-                    console.log('start');
+                    console.log('home');
                 }
             });
             router.on(function () {
@@ -128,6 +132,7 @@
             <nav id="navbar" class="navbar">
                 <ul>
                     <li><a data-navigo data-id="1" data-link="home" href="home">home</a></li>
+                    <li><a data-navigo data-id="1" data-link="changelog" href="changelog">changelog</a></li>
                     <li><a data-navigo data-id="1" data-link="credits" href="credits">credits</a></li>
                 </ul>
             </nav>
@@ -147,7 +152,8 @@
         <div class="row section content">
             <div class="one-third column">
                 <a class="avatar-wrapper">
-                    <span class="integral">&int;</span><span class="initial">M</span>
+                    <span class="integral">&int;</span>
+                    <span class="initial">M</span>
                 </a>
             </div>
             <div class="main-article two-thirds column">
