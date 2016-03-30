@@ -45,16 +45,69 @@
                     $$('.shimmer-layer').removeClass('hidden');
                 },
                 onSuccess: function (response) {
-                    var requestID = this.options.headers['Request-ID'];
-                    var index     = response.index[requestID.toString()];
-                    var article = response.data[index];
+                    var requestType = this.options.headers['M-Request-Type'];
 
-                    $('main-title').set('text', article.title);
-                    $('main-date').set('text', new Date(article.date).timeDiffInWords());
+                    if(requestType === 'Info') {
+                        var requestID   = this.options.headers['M-Request-ID'];
+                        var index       = response.index[requestID.toString()];
+                        var article     = response.data[index];
 
-                    new MooDown('main-body', {
-                        markdown    : article.body
-                    });
+                        $('main-title').set('text', article.title);
+                        $('main-date').set('text', new Date(article.date).timeDiffInWords());
+
+                        new MooDown('main-body', {
+                            markdown    : article.body
+                        });
+                    } else if(requestType === 'List') {
+                        // last added content must go to data[0]
+                        var id = response.data[0].id;
+                        var container = [];
+
+                        for(i = 0; i < response.data.length; i++) {
+                            var index   = response.index[id];
+                            var content = '';
+
+                            /**
+                             * push a section to the container
+                             */
+                            if(!(i % 3)) {
+                                container.push(new Element('div', {
+                                    'class' : 'row section'
+                                }));
+                            }
+
+                            // todo: use addAttribute
+                            content += '<h3><a data-id="';
+                            content += response.data[index].id;
+                            content += '" href="';
+                            content += response.data[index].link;
+                            content += '" data-link="';
+                            content += response.data[index].link;
+                            content += '">';
+                            content += response.data[index].title;
+                            content += '</a></h3>';
+                            content += '<p>';
+                            content += response.data[index].short;
+                            content += '</p>';
+
+                            /**
+                             * add new element to the bottom in the
+                             * current container
+                             */
+                            new Element('div',{
+                                'class' : 'short-article one-third column',
+                                html    : content
+                            }).inject(container[container.length - 1], 'bottom');
+
+                            // if the previous id isn't null get previous
+                            if(prev(response, id) !== null)
+                                id = prev(response, id).id;
+                        }
+
+                        for(i = container.length - 1; i >= 0; i--) {
+                            container[i].inject($('wrapper').getFirst(), 'top');
+                        }
+                    }
 
                     $$('.shimmer-layer').removeClass('no-anim');
                     $$('.shimmer-layer').addClass('hidden');
@@ -69,7 +122,8 @@
                 e.preventDefault();
 
                 jsonRequest.options.url = './data/' + e.target.dataset.link + '.json';
-                jsonRequest.setHeader('Request-ID', e.target.dataset.id);
+                jsonRequest.setHeader('M-Request-Type', 'Info');
+                jsonRequest.setHeader('M-Request-ID', e.target.dataset.id);
 
                 jsonRequest.get();
             };
@@ -81,6 +135,21 @@
                     addClickEvent
             );
 
+            function prev(db, key) {
+                var next = db.index[key] + 1;
+                if (next >= db.data.length) {
+                    return null;
+                }
+                return db.data[next];
+            }
+            function next(db, key) {
+                var next = db.index[key] - 1;
+                if (next < 0) {
+                    return null;
+                }
+                return db.data[next];
+            }
+
             $('menu-bar').addEvent('click', function (event) {
                 event.preventDefault();
 
@@ -90,23 +159,34 @@
             });
 
             router.on({
+                'changelog/list' : function () {
+                    jsonRequest.options.url = './data/changelog.json';
+                    jsonRequest.setHeader('M-Request-Type', 'List');
+                    jsonRequest.setHeader('M-Request-ID', 1);
+                    // console.log(jsonRequest);
+                    jsonRequest.get();
+                    console.log('changlog-list');
+                },
                 'changelog' : function () {
                     jsonRequest.options.url = './data/changelog.json';
-                    jsonRequest.setHeader('Request-ID', 1);
+                    jsonRequest.setHeader('M-Request-Type', 'Info');
+                    jsonRequest.setHeader('M-Request-ID', 1);
                     // console.log(jsonRequest);
                     jsonRequest.get();
                     console.log('changlog');
                 },
                 'credits' : function () {
                     jsonRequest.options.url = './data/credits.json';
-                    jsonRequest.setHeader('Request-ID', 1);
+                    jsonRequest.setHeader('M-Request-Type', 'Info');
+                    jsonRequest.setHeader('M-Request-ID', 1);
                     // console.log(jsonRequest);
                     jsonRequest.get();
                     console.log('credits');
                 },
                 '/' : function () {
                     jsonRequest.options.url = './data/home.json';
-                    jsonRequest.setHeader('Request-ID', 1);
+                    jsonRequest.setHeader('M-Request-Type', 'Info');
+                    jsonRequest.setHeader('M-Request-ID', 1);
                     // console.log(jsonRequest);
                     jsonRequest.get();
                     console.log('home');
@@ -142,7 +222,7 @@
             <nav id="navbar" class="navbar">
                 <ul>
                     <li><a data-navigo data-id="1" data-link="home" href="home">home</a></li>
-                    <li><a data-navigo data-id="1" data-link="changelog" href="changelog">changelog</a></li>
+                    <li><a data-navigo data-link="changelog" href="changelog/list">changelog</a></li>
                     <li><a data-navigo data-id="1" data-link="credits" href="credits">credits</a></li>
                 </ul>
             </nav>
@@ -159,7 +239,7 @@
 <div id="wrapper">
     <!-- CONTAINER -->
     <div class="container">
-        <div class="row section content">
+        <div id="detail" class="row section content">
             <div class="one-third column">
                 <a class="avatar-wrapper">
                     <span class="integral">&int;</span>
@@ -193,6 +273,29 @@
                         <div class="shimmer-masker content-fifth-end"></div>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div id="list" class="row section">
+            <div class="short-article one-third column">
+                <h3><a href="#">Ut enim risus rhoncus</a></h3>
+                <p>Quisque consectetur odio ut sem semper commodo. Maecenas iaculis leo a ligula euismod condimentum.
+                    Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Ut enim risus,
+                    rhoncus.</p>
+                <p>¬ <a href="#">read more</a></p>
+            </div>
+            <div class="short-article one-third column">
+                <h3><a href="#">Maecenas iaculis leo</a></h3>
+                <p>Quisque consectetur odio ut sem semper commodo. Maecenas iaculis leo a ligula euismod condimentum.
+                    Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Ut enim risus,
+                    rhoncus.</p>
+                <p>¬ <a href="#">read more</a></p>
+            </div>
+            <div class="short-article one-third column last">
+                <h3><a href="#">Quisque consectetur odio</a></h3>
+                <p>Quisque consectetur odio ut sem semper commodo. Maecenas iaculis leo a ligula euismod condimentum.
+                    Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Ut enim risus,
+                    rhoncus.</p>
+                <p>¬ <a href="#">read more</a></p>
             </div>
         </div>
     </div>
