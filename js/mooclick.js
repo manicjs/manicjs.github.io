@@ -6,7 +6,7 @@ var MooClick = new Class ({
     Implements : Options,
 
     elements   : [],
-    _elements  : [],
+    _elements  : [],                // array of all elements return by expression
     _fn        : false,
 
     options : {
@@ -27,13 +27,13 @@ var MooClick = new Class ({
 
     refresh    : function () {
         var that = this;
+        // set elements to an empty array
         this.elements = [];
 
         Array.each($$(that._elements), function(data) {
             if (that.options.hasData && data.hasAttribute(('data-' + that.options.hasData))) {
-
                 if (typeof that._fn === 'function') {
-                  data.addEvent('click', that._fn);
+                    data.addEvent('click', that._fn);
                 }
 
                 that.elements.push(data);
