@@ -73,15 +73,15 @@
 
                         // todo: use addAttribute
                         content = '<div class="one-third column">' +
-                                      '<a class="avatar-wrapper">' +
-                                          '<span class="integral">' +
-                                              '∫' +
-                                          '</span>' +
-                                          '<span class="initial">' +
-                                              'M' +
-                                          '</span>' +
-                                      '</a>' +
-                                  '</div>';
+                                '<a class="avatar-wrapper">' +
+                                '<span class="integral">' +
+                                '∫' +
+                                '</span>' +
+                                '<span class="initial">' +
+                                'M' +
+                                '</span>' +
+                                '</a>' +
+                                '</div>';
                         //content += '<h3><a href="#">Text mit Klickeffekt</a></h3>';
                         //content += '<p>Hallo Welt Text: Lorem ipsum vielleicht?</p>';
 
@@ -116,6 +116,9 @@
                         new MooDown('main-body', {
                             markdown    : article.body
                         });
+
+                        // todo: exchange document title with a variable
+                        document.title = "Manic - " + article.title;
                     }
                     // LIST
                     else if(requestType === 'List') {
@@ -138,7 +141,7 @@
                                 }
 
                                 // todo: use addAttribute
-                                content += '<h3><a data-id="';
+                                content += '<h3><a data-navigo data-id="';
                                 content += response.data[index].id;
                                 content += '" href="';
                                 content += response.data[index].link + '/' + response.data[index].id;
@@ -236,7 +239,6 @@
                 'changelog/list' : function () {
                     jsonRequest.options.url = './data/changelog.json';
                     jsonRequest.setHeader('M-Request-Type', 'List');
-                    jsonRequest.setHeader('M-Request-ID', 1);
                     // console.log(jsonRequest);
                     jsonRequest.get();
                     console.log('changlog-list');
@@ -248,14 +250,6 @@
                     // console.log(jsonRequest);
                     jsonRequest.get();
                     console.log('article-');
-                },
-                'changelog' : function () {
-                    jsonRequest.options.url = './data/changelog.json';
-                    jsonRequest.setHeader('M-Request-Type', 'Info');
-                    jsonRequest.setHeader('M-Request-ID', 1);
-                    // console.log(jsonRequest);
-                    jsonRequest.get();
-                    console.log('changlog');
                 },
                 'credits' : function () {
                     jsonRequest.options.url = './data/credits.json';
