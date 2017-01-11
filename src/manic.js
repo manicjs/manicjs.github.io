@@ -2,8 +2,6 @@
  * Created by MrIsaacs on 28.05.2016.
  */
 
-// Singleton using a function
-// by http://www.phpied.com/3-ways-to-define-a-javascript-class/
 var Manic = new function () {
     var self = this;
     this.version = "2.0";
