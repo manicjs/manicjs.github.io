@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="styles/normalize.css">
     <link rel="stylesheet" href="styles/skeleton.css">
     <link rel="stylesheet" href="styles/custom.css">
-    <link rel="stylesheet" href="styles/animation.css">
+    <!--link rel="stylesheet" href="styles/animation.css"-->
     <!-- CSS -->
 
     <!-- FAVICON -->
@@ -19,260 +19,7 @@
     <!-- FAVICON -->
 
     <!-- SCRIPT -->
-    <script src="https://ajax.googleapis.com/ajax/libs/mootools/1.5.2/mootools.js"></script>
-    <script src="./js/mootools-more.js"></script>
-    <script src="https://cdn.rawgit.com/showdownjs/showdown/1.3.0/dist/showdown.min.js"></script>
-    <script src="./js/moodown.js"></script>
-    <script src="./js/mooclick.js"></script>
-    <script src="./js/app.js"></script>
-    <script src="./js/navigo.min.js"></script>
-    <script type="text/javascript">
-        window.addEvent('domready', function () {
-            new docknav();
-
-            var router = new Navigo(null, true);
-
-            var getElement = $('header').getElement;
-
-            var logo    = getElement('.three.columns');
-            var navbar  = getElement('.nine.columns:not(div.mob)');
-            var menubar = getElement('.mob.nine.columns');
-
-            var jsonRequest = new Request.JSON({
-                onRequest: function(){
-                    var requestType = this.options.headers['M-Request-Type'];
-
-                    if(requestType === 'Info') {
-                        $$('.article-layer').addClass('hidden no-anim');
-                        $$('.shimmer-layer').addClass('no-anim');
-                        $$('.shimmer-layer').removeClass('hidden');
-
-                        // todo: check if the same info were requested
-                        if ($('list')) {
-                            $('list').destroy();
-                        }
-                    } else if (requestType === 'List') {
-                        // todo: check if the same list were requested
-                        if ($('detail')) {
-                            $('detail').destroy();
-                        }
-                    }
-                },
-                onSuccess: function (response) {
-                    var requestType = this.options.headers['M-Request-Type'];
-
-
-                    // todo: extract info and list as functions
-                    // INFO
-                    if(requestType === 'Info') {
-                        var requestID   = this.options.headers['M-Request-ID'];
-                        var index       = response.index[requestID.toString()];
-                        var article     = response.data[index];
-                        var container   = $$('div#wrapper ^ div')[0];
-                        var content     = '';
-
-                        // todo: use addAttribute
-                        content = '<div class="one-third column">' +
-                                '<a class="avatar-wrapper">' +
-                                '<span class="integral">' +
-                                '∫' +
-                                '</span>' +
-                                '<span class="initial">' +
-                                'M' +
-                                '</span>' +
-                                '</a>' +
-                                '</div>';
-                        //content += '<h3><a href="#">Text mit Klickeffekt</a></h3>';
-                        //content += '<p>Hallo Welt Text: Lorem ipsum vielleicht?</p>';
-
-                        // todo: prevent via singleton pattern!
-                        // prevent a second detail-element is being created
-                        // when one already exists
-                        if (!$('detail')) {
-                            /**
-                             * add new element to the bottom in the
-                             * current container
-                             */
-                            var detail = new Element('div',{
-                                'id'    : 'detail',
-                                'class' : 'row section content',
-                                html    : content
-                            }).inject(container, 'bottom');
-
-                            new Element('div',{
-                                'class' : 'main-article two-thirds column',
-                                html    : '<div class="article-layer">' +
-                                '<h1 id="main-title"></h1>' +
-                                '<p id="main-date"></p>' +
-                                '<p id="main-body"></p>' +
-                                '</div>'
-                            }).inject(detail);
-                        }
-
-                        $('main-title').set('text', article.title);
-                        $('main-date').set('text', new Date(article.date).timeDiffInWords());
-                        $('main-date').set('title', article.date);
-
-                        new MooDown('main-body', {
-                            markdown    : article.body
-                        });
-
-                        // todo: exchange document title with a variable
-                        document.title = "Manic - " + article.title;
-                    }
-                    // LIST
-                    else if(requestType === 'List') {
-                        // last added content in json files must go to data[0]
-                        var id = response.data[0].id;
-                        var container = [];
-
-                        if (!$('list')) {
-                            for(i = 0; i < response.data.length; i++) {
-                                var index   = response.index[id];
-                                var content = '';
-
-                                /**
-                                 * push a section to the container
-                                 */
-                                if(!(i % 3)) {
-                                    container.push(new Element('div', {
-                                        'class' : 'row section list'
-                                    }));
-                                }
-
-                                // todo: use addAttribute
-                                content += '<h3><a data-navigo data-id="';
-                                content += response.data[index].id;
-                                content += '" href="';
-                                content += response.data[index].link + '/' + response.data[index].id;
-                                content += '" data-link="';
-                                content += response.data[index].link;
-                                content += '">';
-                                content += response.data[index].title;
-                                content += '</a></h3>';
-                                content += '<p>';
-                                content += response.data[index].short;
-                                content += '</p>';
-
-                                /**
-                                 * add new element to the bottom in the
-                                 * current container
-                                 */
-                                new Element('div',{
-                                    'class' : 'short-article one-third column',
-                                    html    : content
-                                }).inject(container[container.length - 1], 'bottom');
-
-                                // if the previous id isn't null get previous
-                                if(prev(response, id) !== null)
-                                    id = prev(response, id).id;
-                            }
-
-                            new Element('div',{
-                                'id'    : 'list'
-                            }).inject($('wrapper').getFirst());
-
-                            for(i = container.length - 1; i >= 0; i--) {
-                                container[i].inject($('list'), 'top');
-                            }
-                        }
-                    }
-
-                    // remove shimmer animation
-                    $$('.shimmer-layer').removeClass('no-anim');
-                    $$('.shimmer-layer').addClass('hidden');
-                    $$('.article-layer').removeClass('hidden no-anim');
-
-                    // refresh every element with data-link to set
-                    // the request header to his properties
-                    clickEvents.refresh();
-                    router.updatePageLinks();
-                }
-            });
-
-            // add
-            var addClickEvent = function (e) {
-                e.preventDefault();
-
-                // add function set request type
-                requestType = e.target.dataset.hasOwnProperty('id') ? 'Info' : 'List';
-                console.log(requestType);
-
-                jsonRequest.options.url = './data/' + e.target.dataset.link + '.json';
-                jsonRequest.setHeader('M-Request-Type', requestType);
-                jsonRequest.setHeader('M-Request-ID', e.target.dataset.id);
-
-                jsonRequest.get();
-            };
-
-            var clickEvents = new MooClick('a', {
-                        hasData       : 'link',
-                        requestObject : jsonRequest
-                    },
-                    addClickEvent
-            );
-
-            function prev(db, key) {
-                var next = db.index[key] + 1;
-                if (next >= db.data.length) {
-                    return null;
-                }
-                return db.data[next];
-            }
-            function next(db, key) {
-                var next = db.index[key] - 1;
-                if (next < 0) {
-                    return null;
-                }
-                return db.data[next];
-            }
-
-            $('menu-bar').addEvent('click', function (event) {
-                event.preventDefault();
-
-                logo.setStyle('display',    'none');
-                menubar.setStyle('display', 'none');
-                navbar.setStyle('display',  'block');
-            });
-
-            router.on({
-                'changelog/list' : function () {
-                    jsonRequest.options.url = './data/changelog.json';
-                    jsonRequest.setHeader('M-Request-Type', 'List');
-                    // console.log(jsonRequest);
-                    jsonRequest.get();
-                    console.log('changlog-list');
-                },
-                'changelog/:id': function (params) {
-                    jsonRequest.options.url = './data/changelog.json';
-                    jsonRequest.setHeader('M-Request-Type', 'Info');
-                    jsonRequest.setHeader('M-Request-ID', params.id);
-                    // console.log(jsonRequest);
-                    jsonRequest.get();
-                    console.log('article-');
-                },
-                'credits' : function () {
-                    jsonRequest.options.url = './data/credits.json';
-                    jsonRequest.setHeader('M-Request-Type', 'Info');
-                    jsonRequest.setHeader('M-Request-ID', 1);
-                    // console.log(jsonRequest);
-                    jsonRequest.get();
-                    console.log('credits');
-                },
-                '/' : function () {
-                    jsonRequest.options.url = './data/home.json';
-                    jsonRequest.setHeader('M-Request-Type', 'Info');
-                    jsonRequest.setHeader('M-Request-ID', 1);
-                    // console.log(jsonRequest);
-                    jsonRequest.get();
-                    console.log('home');
-                }
-            });
-            router.on(function () {
-                console.log('end');
-            });
-        });
-    </script>
+    <script src="./src/manic.js"></script>
     <!-- SCRIPT -->
 </head>
 <body>
@@ -308,15 +55,15 @@
         <div id="detail" class="row section content">
             <div class="one-third column">
                 <a class="avatar-wrapper">
-                    <span class="integral">&int;</span>
                     <span class="initial">M</span>
+                    <span class="integral">&int;</span>
                 </a>
             </div>
             <div class="main-article two-thirds column">
                 <div class="article-layer">
-                    <h1 id="main-title">Latest Story</h1>
-                    <p id="main-date">May 4, 2013 23:00:01</p>
-                    <p id="main-body">Lorem ipsum...</p>
+                    <h1 id="main-title">Title</h1>
+                    <p id="main-date">Date</p>
+                    <p id="main-body">Body</p>
                 </div>
                 <div class="shimmer-layer hidden">
                     <div class="shimmer">
@@ -341,29 +88,6 @@
                 </div>
             </div>
         </div>
-        <!-- div id="related" class="row section">
-            <div class="short-article one-third column">
-                <h3><a href="#">Ut enim risus rhoncus</a></h3>
-                <p>Quisque consectetur odio ut sem semper commodo. Maecenas iaculis leo a ligula euismod condimentum.
-                    Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Ut enim risus,
-                    rhoncus.</p>
-                <p>¬ <a href="#">read more</a></p>
-            </div>
-            <div class="short-article one-third column">
-                <h3><a href="#">Maecenas iaculis leo</a></h3>
-                <p>Quisque consectetur odio ut sem semper commodo. Maecenas iaculis leo a ligula euismod condimentum.
-                    Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Ut enim risus,
-                    rhoncus.</p>
-                <p>¬ <a href="#">read more</a></p>
-            </div>
-            <div class="short-article one-third column last">
-                <h3><a href="#">Quisque consectetur odio</a></h3>
-                <p>Quisque consectetur odio ut sem semper commodo. Maecenas iaculis leo a ligula euismod condimentum.
-                    Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Ut enim risus,
-                    rhoncus.</p>
-                <p>¬ <a href="#">read more</a></p>
-            </div>
-        </div -->
     </div>
     <!-- CONTAINER -->
 </div>
@@ -375,5 +99,6 @@
         </div>
     </div>
 </div>
+
 </body>
 </html>
