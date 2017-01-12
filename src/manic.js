@@ -5,23 +5,6 @@
 var Manic = new function () {
     var self = this;
     this.version = "2.0";
-    this.scriptPromise;
-    this.testScripts = {
-        framework: {
-            url: ["mootools", "mootools-more"],
-            fn: () => {}
-        }
-    };
-    this.testScripts2 = {
-        framework: {
-            url: "mootools",
-            fn: () => {}
-        },
-        markdown: {
-            url: ["showdown", "moodown"],
-            fn: () => {}
-        }
-    };
     this.scripts = {
         framework: {
             url: ["mootools", "mootools-more"],
@@ -75,7 +58,14 @@ var Manic = new function () {
 
                         console.log('home');
                     }
-                }).navigate(window.location.hash);
+                }).navigate(
+                    window.location.hash.length
+                        ?window.location.hash
+                        :(window.location.href[window.location.href.length-1]==="#"
+                            ?''
+                            :'/manic/#'
+                        )
+                );
             }
         }
     };
