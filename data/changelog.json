@@ -1,12 +1,20 @@
 {
   "index" : {
-    "5" : 0,
-    "4" : 1,
-    "3" : 2,
-    "2" : 3,
-    "1" : 4
+    "6" : 0,
+    "5" : 1,
+    "4" : 2,
+    "3" : 3,
+    "2" : 4,
+    "1" : 5
   },
   "data" : [{
+    "id"    : "6",
+    "link"  : "changelog",
+    "title" : "2.1.0-beta (2017-04-06)",
+    "short" : "Bug Fixes - list: remove list if article-link is clicked. footer: hyperlink to mrisaacs blog.",
+    "body"  : "# Features\n* **request:** add head property for promise handling via router\n* **context manager:**\n  - _container:_ defines where the template takes place\n  - _content:_ defines where the reqested content needs to be displayed\n* **methods:**\n  - _getContent:_ retrieve data and displays it as HTML to the view\n  - _prev:_ return previous content from given index\n  - _next:_ return next content from given index\n\n# Refactor\n* **router:**\n - return Navigo instance to _router.instance_\n - take request properties and call _getContent_\n",
+    "date"  : "Apr 6, 2017 19:43:17"
+  }, {
     "id"    : "5",
     "link"  : "changelog",
     "title" : "2.0.0 (2017-01-10)",
@@ -32,7 +40,7 @@
     "link"  : "changelog",
     "title" : "0.9.2 (2016-01-28)",
     "short" : "With showdown processing at header level 2 means that # Header becomes h2-Header because level 1 is taken by the request object and connected with data-title. So the contents title will always be h1-Title.",
-    "body"  : "# Release Information\nWith _showdown_ processing at header **level 2** means that `# Header` becomes `<h2>Header</h2>` because **level 1** is taken by the request object and connected with _data-title_. So the content's title will always be `<h1>Title</h1>`.\n\n# Features\n* **timago:** calculated time which has passed from that date and time will be shown in the post header ([38a05b4#diff-e])\n* **markdown:**\n  - markdown header start at header level 2 ([38a05b4#diff-R16])\n  - tables are compiled by default ([38a05b4#diff-R17])\n  - no markdown is needed for _data-short_. links now compile simple hyperlinks just like `www.github.com` ([d709166#diff-1])\n* **animation:** acitvating animation is processed on request event ([d709166#diff-0])\n* **template:** add id to article _element_ so that response events can change them ([d709166#diff-L146])\n\n# Refactor\n* **data:** change json to contain array of data ([3356044#diff-0])\n* **request:** update response handling to request array of data ([3356044#diff-1])\n\n[3356044#diff-0]: https://github.com/MrIsaacs/manic/commit/3356044cfac545a7c80a5de9e0caa8179b37705e#diff-0\n[3356044#diff-1]: https://github.com/MrIsaacs/manic/commit/3356044cfac545a7c80a5de9e0caa8179b37705e#diff-1\n[b2cdb58]: https://github.com/MrIsaacs/manic/commit/b2cdb58e47fa7510543d477a70dca16848e1d182\n[38a05b4]: https://github.com/MrIsaacs/manic/commit/38a05b4c0a8d60f9235ee3f66a0dd657e73c3568\n[38a05b4#diff-e]: https://github.com/MrIsaacs/manic/commit/38a05b4c0a8d60f9235ee3f66a0dd657e73c3568#diff-eacf331f0ffc35d4b482f1d15a887d3bR40\n[38a05b4#diff-R17]: https://github.com/MrIsaacs/manic/commit/38a05b4c0a8d60f9235ee3f66a0dd657e73c3568#diff-07ce1901396d8744a04f2a16ad702e97R17\n[38a05b4#diff-R16]: https://github.com/MrIsaacs/manic/commit/38a05b4c0a8d60f9235ee3f66a0dd657e73c3568#diff-07ce1901396d8744a04f2a16ad702e97R16\n[d709166#diff-0]: https://github.com/MrIsaacs/manic/commit/d70916614c7ecf373e2ba0959da807b035a9e48b#diff-0\n[d709166#diff-L146]: https://github.com/MrIsaacs/manic/commit/d70916614c7ecf373e2ba0959da807b035a9e48b#diff-eacf331f0ffc35d4b482f1d15a887d3bL146\n[d709166#diff-1]: https://github.com/MrIsaacs/manic/commit/d70916614c7ecf373e2ba0959da807b035a9e48b#diff-1\n",
+    "body"  : "# Release Information\nWith _showdown_ processing at header **level 2** means that `# Header` becomes `<h2>Header</h2>` because **level 1** is taken by the request object and connected with _data-title_. So the content's title will always be `<h1>Title</h1>`.\n\n# Features\n* **timeago:** calculated time which has passed from that date and time will be shown in the post header ([38a05b4#diff-e])\n* **markdown:**\n  - markdown header start at header level 2 ([38a05b4#diff-R16])\n  - tables are compiled by default ([38a05b4#diff-R17])\n  - no markdown is needed for _data-short_. links now compile simple hyperlinks just like `www.github.com` ([d709166#diff-1])\n* **animation:** acitvating animation is processed on request event ([d709166#diff-0])\n* **template:** add id to article _element_ so that response events can change them ([d709166#diff-L146])\n\n# Refactor\n* **data:** change json to contain array of data ([3356044#diff-0])\n* **request:** update response handling to request array of data ([3356044#diff-1])\n\n[3356044#diff-0]: https://github.com/MrIsaacs/manic/commit/3356044cfac545a7c80a5de9e0caa8179b37705e#diff-0\n[3356044#diff-1]: https://github.com/MrIsaacs/manic/commit/3356044cfac545a7c80a5de9e0caa8179b37705e#diff-1\n[b2cdb58]: https://github.com/MrIsaacs/manic/commit/b2cdb58e47fa7510543d477a70dca16848e1d182\n[38a05b4]: https://github.com/MrIsaacs/manic/commit/38a05b4c0a8d60f9235ee3f66a0dd657e73c3568\n[38a05b4#diff-e]: https://github.com/MrIsaacs/manic/commit/38a05b4c0a8d60f9235ee3f66a0dd657e73c3568#diff-eacf331f0ffc35d4b482f1d15a887d3bR40\n[38a05b4#diff-R17]: https://github.com/MrIsaacs/manic/commit/38a05b4c0a8d60f9235ee3f66a0dd657e73c3568#diff-07ce1901396d8744a04f2a16ad702e97R17\n[38a05b4#diff-R16]: https://github.com/MrIsaacs/manic/commit/38a05b4c0a8d60f9235ee3f66a0dd657e73c3568#diff-07ce1901396d8744a04f2a16ad702e97R16\n[d709166#diff-0]: https://github.com/MrIsaacs/manic/commit/d70916614c7ecf373e2ba0959da807b035a9e48b#diff-0\n[d709166#diff-L146]: https://github.com/MrIsaacs/manic/commit/d70916614c7ecf373e2ba0959da807b035a9e48b#diff-eacf331f0ffc35d4b482f1d15a887d3bL146\n[d709166#diff-1]: https://github.com/MrIsaacs/manic/commit/d70916614c7ecf373e2ba0959da807b035a9e48b#diff-1\n",
     "date"  : "Jan 28, 2016 06:14:58"
   }, {
     "id"    : "1",
