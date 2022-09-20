@@ -1,0 +1,48 @@
+name: Manic Page Builder
+
+# Controls when the workflow will run
+on: [push]
+
+jobs:
+  page_build:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node: [16]
+
+    steps:
+      - name: Checkout current repository
+        uses: actions/checkout@master
+
+      - name: Setup node env
+        uses: actions/setup-node@v2.1.2
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: Clone GuillaumeFalourd/poc-github-actions PUBLIC repository
+        uses: GuillaumeFalourd/clone-github-repo-action@v2
+        with:
+          owner: 'manicjs'
+          repository: 'manic'
+
+      - name: Access cloned repository content
+        run: |
+          rm -R manic/config
+          rm -R manic/data
+          rm -R manic/layouts
+          rm -R manic/pages
+          mv -v manic/* .
+      - name: Install Manic's dependencies
+        run: |
+          npm install
+      
+      - name: Generate personal full static site with Manic
+        run: npm run generate
+
+      - name: Deploy personal page
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
