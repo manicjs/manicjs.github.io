@@ -1,36 +1,68 @@
-<template>
-  <div>
-    <div
-      v-for="(changelog, index) in changelogs"
-      :key="index"
-      class="short-article one-third column"
-    >
-      <h3>
-        <NuxtLink :to="changelog.path">
-          {{ changelog.title }}
-        </NuxtLink>
-      </h3>
-      <p>{{ changelog.description }}</p>
-    </div>
-  </div>
-</template>
+<script setup lang="ts">
+import type { QueryBuilderParams } from '@nuxt/content/dist/runtime/types'
+import moment from 'moment';
 
-<script>
-export default {
-  layout: 'list',
-  async asyncData ({ $content }) {
-    const changelogs = await $content('changelogs')
-      .sortBy('position', 'desc')
-      .fetch()
-    return { changelogs }
-  },
-  head () {
-    return {
-      title: 'Changelog list',
-      meta: [
-        { hid: 'description', name: 'description', content: 'A list of changelogs.' }
-      ]
-    }
-  }
+// route.name needs to be passed to routeName to lose binging because as
+// the route changes, route.name becomes not reachable and renders the
+// header literlaly as `slug`. Therefore is  
+// const route = useRoute()
+// @todo router.js:12 [nuxt] Calling `useRoute` within middleware may lead
+//       to misleading results. Instead, use the (to, from) arguments
+//       passed to the middleware to access the new and old routes.
+const { name: routeName } = useRoute()
+const { t } = useI18n()
+const { $ucfirst: ucfirst } = useNuxtApp()
+const query: QueryBuilderParams = {
+  path: '/changelogs',
+  sort: [{ position: -1 }]
 }
+
+const breakWord = (str, limit = 80) => {
+  const nString = `${str.substring(0, limit)}${str.substring(limit, limit + 10).split(' ')[0]}`
+  const l = nString.length
+  return l < limit ?
+    str :
+    `${nString}...`
+}
+
+definePageMeta({
+  pageTransition: {
+    name: 'slide-left',
+    mode: 'out-in'
+  }
+})
+
+useHead({
+  title: t(routeName)
+})
 </script>
+
+<template>
+  <main>
+    <ContentList :query="query" v-slot="{ list }">
+      <section id="article-list">
+        <header>
+          <h1>{{ $t(routeName) }}</h1>
+        </header>
+        <ul>
+          <li
+            v-for="change in list"
+            :key="change._id"
+          >
+            <h2 style="padding-left:0;"><NuxtLink :to="change._path">{{ change.title }}</NuxtLink></h2>
+            <section class="listitem-timestamp">
+              <i><b>{{ $t('created') }}</b></i> <time :datetime="change.createdAt" :title="change.createdAt">
+                {{ moment(change.createdAt).fromNow() }}
+              </time>,
+              <!-- , {{ $t('and') }} -->
+              <i><b>{{ $t('updated') }}</b></i> <time :datetime="change.updatedAt" :title="change.updatedAt">
+                {{ moment(change.updatedAt).fromNow() }}
+              </time>
+            </section>
+            <p>{{ breakWord(change.description) }}</p>
+          </li>
+        </ul>
+      </section>
+    </ContentList>
+  </main>
+</template>
