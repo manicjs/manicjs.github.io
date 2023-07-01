@@ -29,12 +29,9 @@ jobs:
 
       - name: Access cloned repository content
         run: |
-          rm -R manic/assets
-          rm -R manic/config
-          rm -R manic/data
-          rm -R manic/layouts
+          rm -R manic/content
           rm -R manic/pages
-          rm -R manic/static
+          rm -R manic/public
           rm -R manic/301.json
           mv -v manic/* .
       - name: Install Manic's dependencies
