@@ -1,9 +1,11 @@
 ---
-title: Thank You!
-description: 'Scripts can now be loaded and injected dynamically into the document, when they are requested for usage.'
-category: Credits
-createdAt: '2016-02-11T04:01:18+01:00'
-updatedAt: '2022-09-15T04:31:37+02:00'
+title: "Thank You!"
+description: "Scripts can now be loaded and injected dynamically into the document, when they are requested for usage."
+category: "Credits"
+createdAt: "2016-02-11T04:01:18+01:00"
+updatedAt:
+  - "2022-09-15T04:31:37+02:00"
+  - "2023-07-01T22:09:27+02:00"
 position: 1
 ---
 
