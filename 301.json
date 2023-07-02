@@ -1,0 +1,30 @@
+[
+  {
+    "from": "/#changelog/list",
+    "to": "/changelogs"
+  },
+  {
+    "from": "/#changelog/1",
+    "to": "/changelogs/0-8-0-2016-01-16"
+  },
+  {
+    "from": "/#changelog/2",
+    "to": "/changelogs/0-9-2-2016-01-28"
+  },
+  {
+    "from": "/#changelog/3",
+    "to": "/changelogs/1-0-1-2016-02-11"
+  },
+  {
+    "from": "/#changelog/4",
+    "to": "/changelogs/1-1-2-2016-05-17"
+  },
+  {
+    "from": "/#changelog/5",
+    "to": "/changelogs/2-0-0-2017-01-10"
+  },
+  {
+    "from":"/#changelog/6",
+    "to": "/changelogs/2-1-1-2017-04-14"
+  }
+]
