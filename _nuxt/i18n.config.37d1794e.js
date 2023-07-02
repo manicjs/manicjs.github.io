@@ -1,1 +1,0 @@
-const e="and",t="created",a="Home",s="updated",d={and:e,created:t,"get-started":"Get started",home:a,updated:s},n=()=>({defaultLocale:"en",langDir:"./locales",locale:"en",lazy:{skipNuxtState:!0},messages:{en:d},parsePages:!1,strategy:"prefix_except_default",vueI18n:{legacy:!1}});export{n as default};
