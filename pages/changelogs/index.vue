@@ -33,7 +33,7 @@ definePageMeta({
 })
 
 useHead({
-  title: t(routeName)
+  title: 'Changelogs'
 })
 </script>
 
@@ -42,14 +42,15 @@ useHead({
     <ContentList :query="query" v-slot="{ list }">
       <section id="article-list">
         <header>
-          <h1>{{ $t(routeName) }}</h1>
+          <h1>Changelogs</h1>
         </header>
         <ul>
           <li
             v-for="change in list"
             :key="change._id"
           >
-            <h2 style="padding-left:0;"><NuxtLink :to="change._path">{{ change.title }}</NuxtLink></h2>
+            {{ change }}
+            <h2 style="padding-left:0;"><NuxtLink :to="change._path">title</NuxtLink></h2>
             <section class="listitem-timestamp">
               <i><b>{{ $t('created') }}</b></i> <time :datetime="change.createdAt" :title="change.createdAt">
                 {{ moment(change.createdAt).fromNow() }}
