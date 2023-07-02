@@ -17,11 +17,11 @@ definePageMeta({
     <ContentDoc v-slot="{ doc }" :path="$route.path">
       <article>
         <header>
-          <h1>{{ $t( doc.title ) }}</h1>
+          <h1>title</h1>
           <section id="article-timestamp">
-            <i><b>{{ $t('created') }}</b></i> <time :datetime="doc.createdAt" :title="doc.createdAt">
+            <i><b>created</b></i> <time :datetime="doc.createdAt" :title="doc.createdAt">
               {{ moment(doc.createdAt).fromNow() }}
-            </time><br class="bigScreen"/><span class="mobileScreen">, </span><i><b>{{ $t('updated') }}</b></i> <time :datetime="doc.updatedAt" :title="doc.updatedAt">
+            </time><br class="bigScreen"/><span class="mobileScreen">, </span><i><b>updated</b></i> <time :datetime="doc.updatedAt" :title="doc.updatedAt">
               {{ typeof doc.updatedAt==='string' ? moment(doc.updatedAt).fromNow() : moment(doc.updatedAt[doc.updatedAt.length-1]).fromNow() }}
             </time>
           </section>
