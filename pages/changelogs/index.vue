@@ -54,7 +54,6 @@ useHead({
               <i><b>{{ $t('created') }}</b></i> <time :datetime="change.createdAt" :title="change.createdAt">
                 {{ moment(change.createdAt).fromNow() }}
               </time>,
-              <!-- , {{ $t('and') }} -->
               <i><b>{{ $t('updated') }}</b></i> <time :datetime="change.updatedAt" :title="change.updatedAt">
                 {{ typeof change.updatedAt==='string' ? moment(change.updatedAt).fromNow() : moment(change.updatedAt[change.updatedAt.length-1]).fromNow() }}
               </time>
