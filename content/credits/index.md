@@ -1,7 +1,6 @@
 ---
 title: "Thank You!"
-navigation:
-  - title: credits
+navigation: false
 description: "Scripts can now be loaded and injected dynamically into the document, when they are requested for usage."
 category: "Credits"
 createdAt: "2016-02-11T04:01:18+01:00"
