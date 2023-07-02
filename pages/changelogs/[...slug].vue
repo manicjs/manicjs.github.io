@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import moment from 'moment';
 
-const { t } = useI18n()
+const { locale } = useI18n()
 const { $ucfirst: ucfirst } = useNuxtApp()
 
 definePageMeta({
@@ -10,18 +10,14 @@ definePageMeta({
     mode: 'out-in'
   }
 })
-
-useHead({
-  title: t('get-started')
-})
 </script>
 
 <template>
   <main>
-    <ContentDoc v-slot="{ doc }" path="/get-started">
+    <ContentDoc v-slot="{ doc }" :path="$route.path">
       <article>
         <header>
-          <h1>{{ doc.title }}</h1>
+          <h1>{{ $t( doc.title ) }}</h1>
           <section id="article-timestamp">
             <i><b>{{ $t('created') }}</b></i> <time :datetime="doc.createdAt" :title="doc.createdAt">
               {{ moment(doc.createdAt).fromNow() }}

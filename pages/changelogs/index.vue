@@ -56,7 +56,7 @@ useHead({
               </time>,
               <!-- , {{ $t('and') }} -->
               <i><b>{{ $t('updated') }}</b></i> <time :datetime="change.updatedAt" :title="change.updatedAt">
-                {{ moment(change.updatedAt).fromNow() }}
+                {{ typeof change.updatedAt==='string' ? moment(change.updatedAt).fromNow() : moment(change.updatedAt[change.updatedAt.length-1]).fromNow() }}
               </time>
             </section>
             <p>{{ breakWord(change.description) }}</p>
