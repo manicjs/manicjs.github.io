@@ -14,7 +14,7 @@ definePageMeta({
 
 <template>
   <main>
-    <ContentDoc v-slot="{ doc }" :path="$route.path">
+    <ContentDoc v-slot="{ doc }" path="/credits">
       <article>
         <header>
           <h1>{{ doc.title }}</h1>
