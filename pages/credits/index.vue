@@ -1,34 +1,33 @@
-<template>
-  <div class="main-article two-thirds column">
-    <div class="article-layer">
-      <h1 id="main-title">
-        <p>{{ credit.title }}</p>
-      </h1>
-      <p id="main-date" :title="[credit.createdAt, credit.updatedAt]">
-        {{ $moment(credit.createdAt).fromNow() }},
-        <strong>update:</strong>
-        {{ $moment(credit.updatedAt).fromNow() }}
-      </p>
-      <p id="main-body">
-        <nuxt-content :document="credit" />
-      </p>
-    </div>
-  </div>
-</template>
+<script setup lang="ts">
+import moment from 'moment';
 
-<script>
-export default {
-  async asyncData ({ $content, params }) {
-    const credit = await $content('credits', 'index').fetch()
-    return { credit }
-  },
-  head () {
-    return {
-      title: `${this.credit.title}`,
-      meta: [
-        { hid: 'description', name: 'description', content: this.credit.description }
-      ]
-    }
+const { locale } = useI18n()
+const { $ucfirst: ucfirst } = useNuxtApp()
+
+definePageMeta({
+  pageTransition: {
+    name: 'slide-left',
+    mode: 'out-in'
   }
-}
+})
 </script>
+
+<template>
+  <main>
+    <ContentDoc v-slot="{ doc }" :path="$route.path">
+      <article>
+        <header>
+          <h1>{{ doc.title }}</h1>
+          <section id="article-timestamp">
+            <i><b>{{ ('created') }}</b></i> <time :datetime="doc.createdAt" :title="doc.createdAt">
+              {{ moment(doc.createdAt).fromNow() }}
+            </time><br class="bigScreen"/><span class="mobileScreen">, </span><i><b>{{ $t('updated')}}</b></i> <time :datetime="doc.updatedAt" :title="doc.updatedAt">
+              {{ typeof doc.updatedAt==='string' ? moment(doc.updatedAt).fromNow() : moment(doc.updatedAt[doc.updatedAt.length-1]).fromNow() }}
+            </time>
+          </section>
+        </header>
+        <ContentRenderer :value="doc" />
+      </article>
+    </ContentDoc>
+  </main>
+</template>
